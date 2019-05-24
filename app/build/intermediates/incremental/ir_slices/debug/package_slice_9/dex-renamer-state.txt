@@ -1,0 +1,4 @@
+#Fri May 24 10:22:43 CST 2019
+base.0=E\:\\program_space\\android\\demo\\APICloudModuleSDK\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\9
+path.0=classes.dex
+renamed.0=classes.dex

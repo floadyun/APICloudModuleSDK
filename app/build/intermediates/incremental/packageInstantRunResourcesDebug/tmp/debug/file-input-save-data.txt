@@ -1,0 +1,35 @@
+#Internal package file, do not edit.
+#Thu May 23 10:38:57 CST 2019
+7.path=widget/image/refresh.png
+2.base=E\:\\program_space\\android\\demo\\APICloudModuleSDK\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
+5.set=ASSET
+0.path=widget/config.xml
+2.baseType=DIRECTORY
+3.base=E\:\\program_space\\android\\demo\\APICloudModuleSDK\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
+7.baseType=DIRECTORY
+2.set=ASSET
+1.path=widget/css/api.css
+4.base=E\:\\program_space\\android\\demo\\APICloudModuleSDK\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
+7.set=ASSET
+count=8
+5.baseType=DIRECTORY
+2.path=widget/css/box.css
+5.base=E\:\\program_space\\android\\demo\\APICloudModuleSDK\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
+4.set=ASSET
+3.path=widget/index_frm.html
+6.base=E\:\\program_space\\android\\demo\\APICloudModuleSDK\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
+3.baseType=DIRECTORY
+1.set=ASSET
+4.path=widget/script/public.js
+7.base=E\:\\program_space\\android\\demo\\APICloudModuleSDK\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
+6.set=ASSET
+1.baseType=DIRECTORY
+6.baseType=DIRECTORY
+5.path=uzmap/module.json
+0.base=E\:\\program_space\\android\\demo\\APICloudModuleSDK\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
+0.baseType=DIRECTORY
+3.set=ASSET
+6.path=widget/index.html
+1.base=E\:\\program_space\\android\\demo\\APICloudModuleSDK\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
+4.baseType=DIRECTORY
+0.set=ASSET
