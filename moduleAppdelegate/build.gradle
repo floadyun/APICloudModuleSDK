@@ -17,6 +17,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     compileOnly files('../app/libs/apiEngine v1.1.0.jar')
 }

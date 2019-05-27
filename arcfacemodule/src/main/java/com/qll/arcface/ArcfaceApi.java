@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -15,9 +16,11 @@ import com.arcsoft.face.FaceEngine;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.gson.Gson;
 import com.qll.arcface.activity.RegisterAndRecognizeActivity;
 import com.qll.arcface.common.Constants;
 import com.qll.arcface.faceserver.FaceServer;
+import com.qll.arcface.model.RectModel;
 import com.qll.arcface.util.ImageUtil;
 import com.uzmap.pkg.uzcore.UZWebView;
 import com.uzmap.pkg.uzcore.uzmodule.UZModule;
@@ -121,7 +124,7 @@ public class ArcfaceApi extends UZModule {
      * @param moduleContext
      */
     public void jsmethod_register(final UZModuleContext moduleContext){
-        startActivity(new Intent(context(), RegisterAndRecognizeActivity.class));
+
     }
     /**
      * 打开注册界面
@@ -224,21 +227,27 @@ public class ArcfaceApi extends UZModule {
     public void jsmethod_listUser(final UZModuleContext moduleContext){
 
     }
-
     /**
      * 人脸对比
      * @param moduleContext
      */
     public void jsmethod_compare(final UZModuleContext moduleContext){
-//        FaceServer.getInstance().
-    }
 
+    }
     /**
      * 打开人脸对比界面
      * @param moduleContext
      */
     public void jsmethod_openCompare(final UZModuleContext moduleContext){
+        String rectStr = moduleContext.optString("rect");
+        RectModel rect = new Gson().fromJson(rectStr,RectModel.class);
 
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("rect",rect);
+
+        Intent intent = new Intent(context(),RegisterAndRecognizeActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
     /**
      * 关闭人脸对比界面

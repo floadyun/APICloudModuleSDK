@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 import com.arcsoft.face.AgeInfo;
@@ -35,6 +36,7 @@ import com.qll.arcface.faceserver.CompareResult;
 import com.qll.arcface.faceserver.FaceServer;
 import com.qll.arcface.model.DrawInfo;
 import com.qll.arcface.model.FacePreviewInfo;
+import com.qll.arcface.model.RectModel;
 import com.qll.arcface.util.ConfigUtil;
 import com.qll.arcface.util.DrawHelper;
 import com.qll.arcface.util.camera.CameraHelper;
@@ -77,6 +79,7 @@ public class RegisterAndRecognizeActivity extends AppCompatActivity implements V
     private FaceHelper faceHelper;
     private List<CompareResult> compareResultList;
     private ShowFaceInfoAdapter adapter;
+    private FrameLayout recognizeContent;
     /**
      * 活体检测的开关
      */
@@ -122,6 +125,8 @@ public class RegisterAndRecognizeActivity extends AppCompatActivity implements V
             Manifest.permission.READ_PHONE_STATE
     };
 
+    private RectModel rectModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +145,7 @@ public class RegisterAndRecognizeActivity extends AppCompatActivity implements V
         //本地人脸库初始化
         FaceServer.getInstance().init(this);
 
+        recognizeContent = findViewById(R.id.recognize_frame_layout);
         previewView = findViewById(R.id.texture_preview);
         //在布局结束后才做初始化操作
         previewView.getViewTreeObserver().addOnGlobalLayoutListener(this);
@@ -161,8 +167,21 @@ public class RegisterAndRecognizeActivity extends AppCompatActivity implements V
         int spanCount = (int) (dm.widthPixels / (getResources().getDisplayMetrics().density * 100 + 0.5f));
         recyclerShowFaceInfo.setLayoutManager(new GridLayoutManager(this, spanCount));
         recyclerShowFaceInfo.setItemAnimator(new DefaultItemAnimator());
-    }
 
+        ConfigUtil.setFtOrient(this, FaceEngine.ASF_OP_0_HIGHER_EXT);
+
+        rectModel = (RectModel) getIntent().getSerializableExtra("rect");
+
+        setRecognizeSize();
+    }
+    /**
+     * 设置识别视图尺寸
+     */
+    private void setRecognizeSize(){
+        FrameLayout.LayoutParams fParams = new FrameLayout.LayoutParams(rectModel.w,rectModel.h);
+        fParams.setMargins(rectModel.x,rectModel.y,0,0);
+        recognizeContent.setLayoutParams(fParams);
+    }
     /**
      * 初始化引擎
      */
@@ -178,7 +197,6 @@ public class RegisterAndRecognizeActivity extends AppCompatActivity implements V
             Toast.makeText(this, getString(R.string.init_failed, afCode), Toast.LENGTH_SHORT).show();
         }
     }
-
     /**
      * 销毁引擎
      */
@@ -189,8 +207,6 @@ public class RegisterAndRecognizeActivity extends AppCompatActivity implements V
             Log.i(TAG, "unInitEngine: " + afCode);
         }
     }
-
-
     @Override
     protected void onDestroy() {
 
@@ -277,7 +293,6 @@ public class RegisterAndRecognizeActivity extends AppCompatActivity implements V
 
         };
 
-
         CameraListener cameraListener = new CameraListener() {
             @Override
             public void onCameraOpened(Camera camera, int cameraId, int displayOrientation, boolean isMirror) {
@@ -293,8 +308,6 @@ public class RegisterAndRecognizeActivity extends AppCompatActivity implements V
                         .currentTrackId(ConfigUtil.getTrackId(RegisterAndRecognizeActivity.this.getApplicationContext()))
                         .build();
             }
-
-
             @Override
             public void onPreview(final byte[] nv21, Camera camera) {
                 if (faceRectView != null) {
